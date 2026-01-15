@@ -29,7 +29,8 @@
 @code {
     bool _drawerOpen = true;
     bool _isDarkMode = true;
-    MudThemeProvider _mudThemeProvider;
+    // Исправление warning: добавляем = default!;
+    MudThemeProvider _mudThemeProvider = default!;
     MudTheme _theme = new MudTheme();
 
     void DrawerToggle() => _drawerOpen = !_drawerOpen;
@@ -40,8 +41,14 @@
     {
         if (firstRender)
         {
-            await _mudThemeProvider.WatchSystemPreference(d => _isDarkMode = d);
-            StateHasChanged();
+            // Исправление ошибки CS0029/CS1662:
+            // Явно возвращаем Task.CompletedTask, чтобы удовлетворить компилятор
+            await _mudThemeProvider.WatchSystemPreference(d =>
+            {
+                _isDarkMode = d;
+                StateHasChanged();
+                return Task.CompletedTask;
+            });
         }
     }
 }
