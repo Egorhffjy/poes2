@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SentinelIoT",
   "resources": {
-    "hash": "sha256-itQ3y5TvQMBaS9BzOdDR7Hs8dQUnH91DWDLZp3lIegU=",
+    "hash": "sha256-A9sLcnuTFaY5SnO1mO6wxSR0kHocObS36a5+mw0h6B8=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -59,7 +59,7 @@
       "System.Threading.wasm": "sha256-A/T6ZqAEwCt9MvkCwK489A59CsjMeamN1y3W4hz59h4=",
       "System.wasm": "sha256-I4hhyMuUoHdrzDopL9tlnkL/Skg+0OO+gmkOXNT3dcg=",
       "System.Private.CoreLib.wasm": "sha256-IVMkoCz5Fk53uL53WXIyv4y5kRbiAY0SHb5EJH1hmaY=",
-      "SentinelIoT.wasm": "sha256-jjieVRmIqtsHXAshUwcUvaNJFNNsVUNUK082ZwMB2DE="
+      "SentinelIoT.wasm": "sha256-D2URxdbjkzk934PE0ZE2niEUPo5ag2ZuuI8JSP1eyps="
     }
   },
   "cacheBootResources": true,
