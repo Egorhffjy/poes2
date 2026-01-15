@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SentinelIoT</title>
+    <!-- Базовый путь настраивается автоматически скриптом ниже, это для Github Pages -->
+    <base href="/SentinelIoT/" />
+    
+    <!-- MudBlazor Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    
+    <!-- Скрипт-хак для GitHub Pages, чтобы перенаправлять на правильный путь репозитория -->
+    <script type="text/javascript">
+        // Single Page Apps for GitHub Pages
+        (function(l) {
+            if (l.search[1] === '/' ) {
+                var decoded = l.search.slice(1).split('&').map(function(s) { 
+                    return s.replace(/~and~/g, '&')
+                }).join('?');
+                window.history.replaceState(null, null,
+                    l.pathname.slice(0, -1) + decoded + l.hash
+                );
+            }
+        }(window.location))
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    
+    <!-- Динамическая установка BasePath -->
+    <script>
+        var path = window.location.pathname.split('/');
+        var base = document.getElementsByTagName('base')[0];
+        if (window.location.host.includes('github.io')) {
+            base.setAttribute('href', '/' + path[1] + '/');
+        } else {
+            base.setAttribute('href', '/');
+        }
+    </script>
+</body>
+
+</html>
