@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SentinelIoT",
   "resources": {
-    "hash": "sha256-3Qb/GFs8ma+qZ2PQFpqlBi92P6rVQIMhJqh8VT+iYgs=",
+    "hash": "sha256-itQ3y5TvQMBaS9BzOdDR7Hs8dQUnH91DWDLZp3lIegU=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -36,7 +36,7 @@
       "Microsoft.Extensions.Primitives.wasm": "sha256-xyqqv0SMCahnrOs+p5QYDHoh/BAYlbNtyjTTpqmRW/g=",
       "Microsoft.JSInterop.wasm": "sha256-I0cIRWpJcGy/S3tlpne3QbtNqAVam5Jn28Dv4v0khC4=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-Px6z5DU/gBGylV4ob9sdcAVH4KKxpByP7WNTn+lZUro=",
-      "MudBlazor.wasm": "sha256-iMdiH8Y3Eh7MKXQwpgJ7pBdbD0IPSK/7q57mqWH1wH8=",
+      "MudBlazor.wasm": "sha256-OkEVtsGz+mfc9Hjt/ztipZBog1noJ3XBjQM4lGjsurM=",
       "System.Collections.Concurrent.wasm": "sha256-+716qvkb/tb7/S5RimhbWEKioWzhcNptAhIKeQtsjTE=",
       "System.Collections.wasm": "sha256-oW8dhWFsXeZDhuXJhHB5yYJvwqFEZ4akaZHS3KhEvwE=",
       "System.ComponentModel.Annotations.wasm": "sha256-HGfyzHT1ZFJeOK8ZgVdtAf5iT7vKE3gbCmqvR1h+eC4=",
@@ -45,21 +45,21 @@
       "System.ComponentModel.wasm": "sha256-7SnZCR7f5PIOEi50UUXb+qln3Fhn0P5EU5k93dDZyRA=",
       "System.Console.wasm": "sha256-CH5JUcaXPO7CFKja0IPSh+Vg2uxBEYOC0UORbgHNUPs=",
       "System.Linq.Expressions.wasm": "sha256-lVFJo/FvRRzat1ouACxSYvxioq2bbdPu1+bFIlLVblk=",
-      "System.Linq.wasm": "sha256-JIYtATN8axDJXP2V8polGSL8deCdyTT1w1r1S1e5eW4=",
+      "System.Linq.wasm": "sha256-svkAc9c2V0xoMVKz9cmsQE/S5kZV2jq7QcbfaXak03Y=",
       "System.Memory.wasm": "sha256-dQjggVLU/CEC+BdB2V/ffL3xbdW6qhHpfQSYdzl8m/8=",
       "System.Net.Http.wasm": "sha256-XeIFDMx/0HO3Ea6UzNqv7q2XfTP/UVXXvo5yGpDaHmU=",
       "System.Net.Primitives.wasm": "sha256-SzHwskVflVUF7fSY3wmnCR179HN70oOGfF/t1FsL58s=",
       "System.ObjectModel.wasm": "sha256-l/MqXlK3Ch93Pvr4XhYaSajQKuv8R7X+q9FPy94r/p0=",
       "System.Private.Uri.wasm": "sha256-IA29RRQPrWAq/dFCS4molk1DeJjQ+ovjIyMVgGapc/0=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-jyWIOjFJWVD6H+c7p3jwTPdQKrWe7mTa1tIUGvhI88s=",
-      "System.Runtime.wasm": "sha256-uv0lz8zu9uxmvCiGtIqe7o5eYpaupsOEh6NUnwkIl4Y=",
+      "System.Runtime.wasm": "sha256-A4clt46xIc7lqq7B/91edtkAxhxvIuWniki0g8Wpscw=",
       "System.Text.Encodings.Web.wasm": "sha256-ZfCb2TSGxncfpyCkdqhIDqbsmxhl1+L2kv26ZWtTdWE=",
       "System.Text.Json.wasm": "sha256-QvRt+MpPV6ZPEemjPwLcJZcrFJhQ+Uy3fcBT6YVS1B8=",
       "System.Text.RegularExpressions.wasm": "sha256-lTDw4TdSsKaAJ5Gz4VWY4PGG9ViR2OaWJfAKUI2FZkc=",
       "System.Threading.wasm": "sha256-A/T6ZqAEwCt9MvkCwK489A59CsjMeamN1y3W4hz59h4=",
       "System.wasm": "sha256-I4hhyMuUoHdrzDopL9tlnkL/Skg+0OO+gmkOXNT3dcg=",
       "System.Private.CoreLib.wasm": "sha256-IVMkoCz5Fk53uL53WXIyv4y5kRbiAY0SHb5EJH1hmaY=",
-      "SentinelIoT.wasm": "sha256-c1HlRrMPjhCpTnNauS5rrgeuUY2dDV2uyDWxlK9piJc="
+      "SentinelIoT.wasm": "sha256-jjieVRmIqtsHXAshUwcUvaNJFNNsVUNUK082ZwMB2DE="
     }
   },
   "cacheBootResources": true,
