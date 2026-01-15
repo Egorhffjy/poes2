@@ -7,6 +7,7 @@
 <MudText Typo="Typo.h4" Class="mb-4">Live Monitoring</MudText>
 
 <MudGrid>
+    <!-- Карточки статистики (без изменений) -->
     <MudItem xs="12" sm="4">
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Elevation="25">
             <MudStack AlignItems="AlignItems.Center">
@@ -35,26 +36,48 @@
         </MudPaper>
     </MudItem>
 
+    <!-- ГРАФИК -->
     <MudItem xs="12">
         <MudPaper Class="pa-4">
-            <MudText Typo="Typo.h6">Real-time Trends</MudText>
-            <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XLabels" Width="100%" Height="350px"></MudChart>
+            <MudText Typo="Typo.h6">Real-time Trends (Smoothed)</MudText>
+            
+            <!-- Добавлено свойство ChartOptions="@_options" -->
+            <MudChart ChartType="ChartType.Line" 
+                      ChartSeries="@Series" 
+                      XAxisLabels="@XLabels" 
+                      ChartOptions="@_options"
+                      Width="100%" 
+                      Height="400px">
+            </MudChart>
         </MudPaper>
     </MudItem>
 </MudGrid>
 
 @code {
     private List<ChartSeries> Series = new List<ChartSeries>();
-    // Исправление warning: Инициализируем пустой массив сразу
     private string[] XLabels = Array.Empty<string>();
     private double avgTemp;
     private int alertsCount;
     private List<double> history = new List<double>();
 
+    // НОВЫЕ НАСТРОЙКИ ГРАФИКА
+    private ChartOptions _options = new ChartOptions
+    {
+        // Включаем "натуральный сплайн" - линии станут плавными
+        InterpolationOption = InterpolationOption.NaturalSpline,
+        
+        // Включаем горизонтальные линии сетки
+        YAxisLines = true,
+        
+        // Шаг значений по вертикали (настройка делений)
+        YAxisTicks = 5, 
+    };
+
     protected override void OnInitialized()
     {
         SensorService.OnChange += UpdateUi;
         
+        // Стартовые данные, чтобы график не был пустым
         for(int i=0; i<10; i++) history.Add(25);
         
         UpdateChart();
@@ -70,7 +93,8 @@
         }
 
         history.Add(avgTemp);
-        if (history.Count > 10) history.RemoveAt(0);
+        // Держим больше точек истории (20), чтобы видеть динамику
+        if (history.Count > 20) history.RemoveAt(0);
         
         UpdateChart();
         InvokeAsync(StateHasChanged);
@@ -78,10 +102,12 @@
 
     private void UpdateChart()
     {
-        XLabels = history.Select((x, i) => i.ToString()).ToArray();
+        // Пустые лейблы для оси X, чтобы не загромождать
+        XLabels = history.Select(x => "").ToArray();
+        
         Series = new List<ChartSeries>
         {
-            new ChartSeries { Name = "Avg Temperature", Data = history.ToArray() }
+            new ChartSeries { Name = "Avg Temp", Data = history.ToArray() }
         };
     }
 
