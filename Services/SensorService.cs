@@ -33,22 +33,26 @@ public class SensorService : IDisposable
         _timer.Start();
     }
 
-    private void SimulateUpdates(object? sender, ElapsedEventArgs e)
+   private void SimulateUpdates(object? sender, ElapsedEventArgs e)
     {
         var rng = new Random();
         foreach (var s in _sensors)
         {
-            // Дрейф температуры
-            double change = rng.NextDouble() - 0.5; // -0.5 to +0.5
+            // УВЕЛИЧИЛИ АМПЛИТУДУ: Теперь меняется от -2.5 до +2.5 градуса за тик
+            double change = (rng.NextDouble() * 5) - 2.5; 
             s.Temperature = Math.Round(s.Temperature + change, 1);
             
+            // Держим в рамках разумного (чтобы график не улетел в бесконечность)
+            if (s.Temperature < 15) s.Temperature += 2;
+            if (s.Temperature > 45) s.Temperature -= 2;
+            
             // Логика статусов
-            if (s.Temperature > 35) s.Status = "Critical";
-            else if (s.Temperature > 28) s.Status = "Warning";
+            if (s.Temperature > 40) s.Status = "Critical";
+            else if (s.Temperature > 30) s.Status = "Warning";
             else s.Status = "Normal";
         }
         
-        OnChange?.Invoke(); // Сообщаем компонентам об изменении
+        OnChange?.Invoke();
     }
 
     public List<Sensor> GetSensors() => _sensors;
