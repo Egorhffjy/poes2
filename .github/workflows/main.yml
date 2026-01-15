@@ -21,7 +21,8 @@ jobs:
       # Этот шаг меняет базовый тег, чтобы пути к ресурсам были верными на github pages
       # Но наш JavaScript в index.html тоже это страхует. 
       - name: Change base-tag in index.html from / to /SentinelIoT/
-        run: sed -i 's/<base href="\/" \/>/<base href="\/SentinelIoT\/" \/>/g' release/wwwroot/index.html
+        run: sed -i 's/<base href="\/" \/>/<base href="\/poes2\/" \/>/g' release/wwwroot/index.html
+        
 
       # Создаем копию index.html как 404.html чтобы роутинг работал при обновлении страницы
       - name: Copy index.html to 404.html
