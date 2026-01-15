@@ -1,0 +1,65 @@
+@page "/inventory"
+@inject SensorService SensorService
+@implements IDisposable
+
+<MudText Typo="Typo.h4" Class="mb-4">Device Registry</MudText>
+
+<MudTable Items="@SensorService.GetSensors()" Hover="true" SortLabel="Sort By" Filter="new Func<Sensor,bool>(FilterFunc1)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">All Devices</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Sensor, object>(x=>x.Id)">ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Sensor, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Sensor, object>(x=>x.Zone)">Location</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Sensor, object>(x=>x.Temperature)">Temp (°C)</MudTableSortLabel></MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Location">@context.Zone</MudTd>
+        <MudTd DataLabel="Temp">
+            <MudText Color="@(context.Temperature > 30 ? Color.Error : Color.Success)">
+                @context.Temperature
+            </MudText>
+        </MudTd>
+        <MudTd DataLabel="Status">
+            <MudChip Color="@GetColor(context.Status)" Size="Size.Small">@context.Status</MudChip>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private string searchString1 = "";
+
+    protected override void OnInitialized()
+    {
+        SensorService.OnChange += UpdateUi;
+    }
+
+    public void Dispose() => SensorService.OnChange -= UpdateUi;
+    private void UpdateUi() => InvokeAsync(StateHasChanged);
+
+    private MudBlazor.Color GetColor(string status) => status switch 
+    {
+        "Normal" => MudBlazor.Color.Success,
+        "Warning" => MudBlazor.Color.Warning,
+        _ => MudBlazor.Color.Error
+    };
+
+    private bool FilterFunc1(Sensor element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(Sensor element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString)) return true;
+        if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)) return true;
+        if (element.Zone.Contains(searchString, StringComparison.OrdinalIgnoreCase)) return true;
+        return false;
+    }
+}

@@ -1,0 +1,90 @@
+@page "/"
+@inject SensorService SensorService
+@implements IDisposable
+
+<PageTitle>Dashboard</PageTitle>
+
+<MudText Typo="Typo.h4" Class="mb-4">Live Monitoring</MudText>
+
+<MudGrid>
+    <MudItem xs="12" sm="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Elevation="25">
+            <MudStack AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.Filled.Sensors" Size="Size.Large" Color="Color.Primary" />
+                <MudText Typo="Typo.h6">Active Sensors</MudText>
+                <MudText Typo="Typo.h4">@SensorService.GetSensors().Count</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Elevation="25">
+            <MudStack AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.Filled.Thermostat" Size="Size.Large" Color="Color.Success" />
+                <MudText Typo="Typo.h6">Avg Temp</MudText>
+                <MudText Typo="Typo.h4">@avgTemp.ToString("F1") °C</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="4">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Elevation="25">
+            <MudStack AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.Filled.Warning" Size="Size.Large" Color="Color.Error" />
+                <MudText Typo="Typo.h6">Critical Alerts</MudText>
+                <MudText Typo="Typo.h4" Color="Color.Error">@alertsCount</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12">
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h6">Real-time Trends</MudText>
+            <!-- Индекс -1 делает так, чтобы график рисовал только линии данных, не пытаясь привязываться к string labels -->
+            <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XLabels" Width="100%" Height="350px"></MudChart>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private List<ChartSeries> Series = new List<ChartSeries>();
+    private string[] XLabels;
+    private double avgTemp;
+    private int alertsCount;
+    private List<double> history = new List<double>();
+
+    protected override void OnInitialized()
+    {
+        SensorService.OnChange += UpdateUi;
+        
+        // Инит данных для графика
+        for(int i=0; i<10; i++) history.Add(25);
+        
+        UpdateChart();
+    }
+
+    private void UpdateUi()
+    {
+        var sensors = SensorService.GetSensors();
+        avgTemp = sensors.Average(x => x.Temperature);
+        alertsCount = sensors.Count(x => x.Status == "Critical");
+
+        history.Add(avgTemp);
+        if (history.Count > 10) history.RemoveAt(0);
+        
+        UpdateChart();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateChart()
+    {
+        XLabels = history.Select((x, i) => i.ToString()).ToArray();
+        Series = new List<ChartSeries>
+        {
+            new ChartSeries { Name = "Avg Temperature", Data = history.ToArray() }
+        };
+    }
+
+    public void Dispose()
+    {
+        SensorService.OnChange -= UpdateUi;
+    }
+}
